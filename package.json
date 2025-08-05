@@ -1,4 +1,4 @@
-{
+  {
   "name": "nodejs-hw-mongodb",
   "version": "1.0.0",
   "type": "module",
@@ -19,8 +19,7 @@
   "bugs": {
     "url": "https://github.com/Vitalii-Kryshtal/nodejs-hw-mongodb/issues"
   },
-  "homepage": "https://github.com/Vitalii-Kryshtal/nodejs-hw-mongodb#readme" 
-  },
+  "homepage": "https://github.com/Vitalii-Kryshtal/nodejs-hw-mongodb#readme",
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.32.0",
@@ -37,3 +36,4 @@
     "mongoose": "^8.17.0",
     "pino-http": "^10.5.0"
   }
+}
