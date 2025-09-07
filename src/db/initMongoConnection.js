@@ -12,7 +12,7 @@ export const initMongoDBConnection = async () => {
   const clientOptions = {
     serverApi: { version: "1", strict: true, deprecationErrors: true },
   };
-  const uri = `mongodb+srv://${user}:${password}@${host}/${db}?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://${user}:${password}@${host}/${db}?retryWrites=true&w=majority&appName=Cluster0`;
 
   try {
     await mongoose.connect(uri, clientOptions);
