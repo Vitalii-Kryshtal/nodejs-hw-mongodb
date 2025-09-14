@@ -1,0 +1,50 @@
+tags:
+  - Auth
+summary: Logout user
+operationId: logoutUser
+description: >
+  Logout user by invalidating session and refresh token.
+  Requires accessToken in Authorization header and valid cookies (sessionId, refreshToken).
+security:
+  - bearerAuth: []
+parameters:
+  - in: header
+    name: Authorization
+    required: true
+    schema:
+      type: string
+      example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    description: "Bearer access token"
+  - in: cookie
+    name: sessionId
+    required: true
+    schema:
+      type: string
+      example: "j%3A%2268b1d6531cc0bc6edf42f2b8%22"
+    description: "Session cookie"
+  - in: cookie
+    name: refreshToken
+    required: true
+    schema:
+      type: string
+      example: "cROTUt340G6OUx1KsRX%2B3xm6px2XyjhqiPsxwb7J"
+    description: "Refresh token cookie"
+responses:
+  "204":
+    description: Successfully logged out, cookies cleared
+    headers:
+      Set-Cookie:
+        description: >
+          Server clears cookies `sessionId` and `refreshToken`.
+          Example shows cookies invalidated.
+        schema:
+          type: string
+        examples:
+          clearSession:
+            value: "sessionId=; HttpOnly; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+          clearRefresh:
+            value: "refreshToken=; HttpOnly; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+  "401":
+    $ref: "../../../components/responses/401.yaml"
+  "500":
+    $ref: "../../../components/responses/500.yaml"

@@ -1,0 +1,42 @@
+type: object
+required:
+  - _id
+  - name
+  - phoneNumber
+  - email
+  - isFafourite
+  - contactType
+  - userId
+properties:
+  _id:
+    description: "Contact's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  name:
+    description: "Contact person's name"
+    type: string
+    example: "John Doe"
+  phoneNumber:
+    description: "Contact personal phone number"
+    type: string
+    example: "+380671002345"
+  email:
+    description: "Contact personal email"
+    type: string
+    example: "mail@domain.com"
+  isFafourite:
+    description: "Mark contact as fafourite or not"
+    type: boolean
+    example: true
+  contactType:
+    description: "Define contact's type"
+    type: string
+    enum: ["home", "work", "personal"]
+  userId:
+    description: "Id of user that owns this contact"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  photo:
+    description: "Photo of the contact's person"
+    type: string
+    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png

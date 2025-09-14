@@ -1,0 +1,45 @@
+tags:
+  - Auth
+summary: Request password reset
+operationId: requestResetPassword
+security: []
+description: >
+  Request password reset by email.  
+  If the user exists, a reset link with JWT token will be sent to the provided email.  
+  The link contains a JWT as a request parameter for further password reset.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+        properties:
+          email:
+            type: string
+            format: email
+            description: "User's email address"
+            example: "user@example.com"
+responses:
+  "200":
+    description: Password reset email sent
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [status, message, data]
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Reset password email was successfully sent!"
+            data:
+              type: object
+              example: {}
+  "404":
+    $ref: "../../../components/responses/404.yaml"
+  "500":
+    $ref: "../../../components/responses/500.yaml"

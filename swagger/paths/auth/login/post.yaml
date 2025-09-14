@@ -1,0 +1,61 @@
+tags:
+  - Auth
+summary: Login user
+operationId: loginUser
+description: "Authenticate user with email and password. Returns accessToken and sets refresh/session cookies."
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required: [email, password]
+        properties:
+          email:
+            type: string
+            format: email
+            example: "jd@domain.com"
+          password:
+            type: string
+            format: password
+            example: "qwerty436346"
+responses:
+  "200":
+    description: Successfully logged in
+    headers:
+      Set-Cookie:
+        description: >
+          Server sets two HTTP-only cookies with 30-day expiration:
+          - sessionId
+          - refreshToken
+        schema:
+          type: string
+        examples:
+          sessionId:
+            value: "sessionId=68b1d6531cc0bc6edf42f2b8; HttpOnly; Expires=Fri, 28 Sep 2025 12:00:00 GMT; Path=/"
+          refreshToken:
+            value: "refreshToken=cROTUt340G6OUx1KsRX3xm6px2XyjhqiPsxwb7J; HttpOnly; Expires=Fri, 28 Sep 2025 12:00:00 GMT; Path=/"
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [stratus, message, data]
+          properties:
+            stratus:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Successfully logged in"
+            data:
+              type: object
+              required: [accessToken]
+              properties:
+                accessToken:
+                  type: string
+                  example: "5+daMSC/e7+1M4W03fVJ98I/+hr4PBP3ngN7MeHa"
+  "401":
+    $ref: "../../../components/responses/401.yaml"
+  "500":
+    $ref: "../../../components/responses/500.yaml"

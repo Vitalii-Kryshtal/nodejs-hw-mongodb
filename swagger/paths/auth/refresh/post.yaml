@@ -1,0 +1,62 @@
+tags:
+  - Auth
+summary: Refresh session
+operationId: refreshTokens
+security: []
+description: >
+  Refresh user session by issuing a new access token and updating cookies
+  (`sessionId` and `refreshToken`). Requires valid `refreshToken` and `sessionId` cookies.
+parameters:
+  - in: cookie
+    name: sessionId
+    required: true
+    schema:
+      type: string
+      example: "68b1d6531cc0bc6edf42f2b8"
+    description: "Session cookie"
+  - in: cookie
+    name: refreshToken
+    required: true
+    schema:
+      type: string
+      example: "cROTUt340G6OUx1KsRX3xm6px2XyjhqiPsxwb7J"
+    description: "Refresh token cookie"
+responses:
+  "200":
+    description: Successfully refreshed session
+    headers:
+      Set-Cookie:
+        description: >
+          Server sets new HTTP-only cookies with 30-day expiration:
+          - sessionId
+          - refreshToken
+        schema:
+          type: string
+        examples:
+          newSession:
+            value: "sessionId=68b1e9991cc0bc6edf42f2c1; HttpOnly; Expires=Fri, 28 Sep 2025 12:00:00 GMT; Path=/"
+          newRefresh:
+            value: "refreshToken=n3wRTokEn12345; HttpOnly; Expires=Fri, 28 Sep 2025 12:00:00 GMT; Path=/"
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [status, message, data]
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: "Successfully refreshed session"
+            data:
+              type: object
+              required: [accessToken]
+              properties:
+                accessToken:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.newAccessToken"
+  "401":
+    $ref: "../../../components/responses/401.yaml"
+  "500":
+    $ref: "../../../components/responses/500.yaml"

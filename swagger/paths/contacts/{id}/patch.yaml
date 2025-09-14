@@ -1,0 +1,75 @@
+# done
+tags:
+  - Contacts
+summary: Update contact
+operationId: updateContact
+description: "Partially update a contact by id"
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: "65ca67e7ae7f10c88b598384"
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        description: "Any subset of fields can be provided for update"
+        properties:
+          name:
+            description: "Contact person's name"
+            type: string
+            example: "Johnathan Doe"
+          phoneNumber:
+            description: "Contact phone number"
+            type: string
+            example: "+380671002346"
+          email:
+            description: "Contact email"
+            type: string
+            format: email
+            example: "john.new@example.com"
+          isFafourite:
+            description: "Mark contact as favourite or not"
+            type: boolean
+            example: false
+          contactType:
+            description: "Define contact's type"
+            type: string
+            enum: ["home", "work", "personal"]
+            example: "home"
+          photo:
+            description: "Contact's photo"
+            type: string
+            format: binary
+responses:
+  "200":
+    description: "Update contact"
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully patched contact with id 65ca67e7ae7f10c88b598384!
+            data:
+              type: object
+              $ref: "../../../components/schemas/contact.yaml"
+  "401":
+    $ref: "../../../components/responses/401.yaml"
+  "404":
+    $ref: "../../../components/responses/404.yaml"
+  "500":
+    $ref: "../../../components/responses/500.yaml"
