@@ -1,7 +1,11 @@
-import { Schema, model } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 const contactSchema = new Schema(
   {
+    userId: {
+      type: Types.ObjectId,
+      ref: "users",
+    },
     name: {
       type: String,
       required: true,
@@ -12,11 +16,11 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
-      required: false,
+      require: false,
     },
     isFavourite: {
       type: Boolean,
-      reqiured: false,
+      required: true,
       default: false,
     },
     contactType: {
@@ -25,13 +29,9 @@ const contactSchema = new Schema(
       enum: ["work", "home", "personal"],
       default: "personal",
     },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "users",
-    },
     photo: {
       type: String,
-      requirerd: false,
+      default: null,
     },
   },
   {
@@ -39,5 +39,4 @@ const contactSchema = new Schema(
     versionKey: false,
   }
 );
-
 export const ContactsCollection = model("contacts", contactSchema);
